@@ -12,22 +12,25 @@ namespace ApiGateway.Gateway.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly IHttpClientFactory _client;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IHttpClientFactory client)
         {
             _logger = logger;
+            _client = client;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<ActionResult> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var sqlClient = _client.CreateClient("SQLServer");
+
+            var response = await sqlClient.GetAsync("api/Productos/770");
+
+            if (response.IsSuccessStatusCode) 
             {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                return Ok(response.Content);
+            }
+            return BadRequest(response.Content);
         }
     }
 }
