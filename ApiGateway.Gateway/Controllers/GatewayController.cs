@@ -4,22 +4,18 @@ namespace ApiGateway.Gateway.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class GatewayController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<GatewayController> _logger;
         private readonly IHttpClientFactory _client;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IHttpClientFactory client)
+        public GatewayController(ILogger<GatewayController> logger, IHttpClientFactory client)
         {
             _logger = logger;
             _client = client;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "GetProductosCategoria")]
         public async Task<ActionResult> Get()
         {
             var sqlClient = _client.CreateClient("SQLServer");
