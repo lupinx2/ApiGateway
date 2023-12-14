@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 namespace ApiGateway.SQLServer.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class ProductosController : ControllerBase
+    [Route("api/")]
+    public class SQLDBController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ProductosController(ApplicationDbContext context)
+        public SQLDBController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -26,6 +26,21 @@ namespace ApiGateway.SQLServer.Controllers
         public async Task<Producto?> ObtenerProductosPorCodigo(string codigo)
         {
             return await _context.Productos.FirstOrDefaultAsync(x => x.Codigo==codigo);
+        }
+
+
+        [HttpPost("login")]
+        public async Task<ActionResult> Post([FromBody] LoginRequest loginrequest)
+        {   
+            var cliente = await _context.Clientes.FirstOrDefaultAsync(c => c.usuario == loginrequest.Username && c.contraseña == loginrequest.Password);
+            System.Console.WriteLine(cliente);
+            if (cliente == null){return BadRequest();}
+            if (cliente.cliente_ID !=0)
+            {
+                return Ok();
+            }else{
+                return BadRequest();
+            }
         }
     }
 }

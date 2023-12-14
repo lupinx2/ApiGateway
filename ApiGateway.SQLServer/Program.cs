@@ -1,17 +1,19 @@
 using ApiGateway.SQLServer.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(
     options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"));
-    });
+        options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=localhost,1433;Database=tienditaSQLDB;User Id=sa;Password=123AMD$l;"));
+    }
+);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

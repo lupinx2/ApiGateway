@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # Launch the program files using dotnet watch
-dotnet watch run --project ApiGateway.Gateway/ApiGateway.Gateway.csproj &
-dotnet watch run --project ApiGateway.MongoDB/ApiGateway.MongoDB.csproj &
-dotnet watch run --project ApiGateway.SQLServer/ApiGateway.SQLServer.csproj &
+dotnet run --project ApiGateway.Gateway/ApiGateway.Gateway.csproj &
+dotnet run --project ApiGateway.MongoDB/ApiGateway.MongoDB.csproj &
+dotnet run --project ApiGateway.SQLServer/ApiGateway.SQLServer.csproj &

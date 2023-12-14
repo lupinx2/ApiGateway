@@ -11,5 +11,6 @@ namespace ApiGateway.SQLServer.Models
         }
 
         public DbSet<Producto> Productos { get; set; }
+        public DbSet<Clientes> Clientes { get; internal set; }
     }
 }

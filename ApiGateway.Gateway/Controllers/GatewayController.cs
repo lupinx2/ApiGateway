@@ -15,18 +15,30 @@ namespace ApiGateway.Gateway.Controllers
             _client = client;
         }
 
-        [HttpGet(Name = "GetProductosCategoria")]
-        public async Task<ActionResult> Get()
+        [HttpGet("test")]
+        public ActionResult Get()
+        {
+            // just return 200
+            return Ok();
+            /*             var sqlClient = _client.CreateClient("SQLServer");
+
+                        var response = await sqlClient.GetAsync("api/Productos/770");
+
+                        if (response.IsSuccessStatusCode) 
+                        {
+                            return Ok(response.Content);
+                        }
+                        return BadRequest(response.Content); */
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult> Post([FromBody] LoginRequest loginrequest)
         {
             var sqlClient = _client.CreateClient("SQLServer");
 
-            var response = await sqlClient.GetAsync("api/Productos/770");
+            var response = await sqlClient.PostAsJsonAsync("api/Usuarios/Login", loginrequest);
 
-            if (response.IsSuccessStatusCode) 
-            {
-                return Ok(response.Content);
-            }
-            return BadRequest(response.Content);
+            return Ok(response.Content);
         }
     }
 }
