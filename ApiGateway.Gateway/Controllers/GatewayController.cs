@@ -36,9 +36,16 @@ namespace ApiGateway.Gateway.Controllers
         {
             var sqlClient = _client.CreateClient("SQLServer");
 
-            var response = await sqlClient.PostAsJsonAsync("api/Usuarios/Login", loginrequest);
+            var response = await sqlClient.PostAsJsonAsync("http://localhost:5031/api/Login", loginrequest);
 
-            return Ok(response.Content);
+            var content = await response.Content.ReadAsStringAsync();
+            return Ok(content);
+        }
+
+        [HttpPost("fresh")]
+        public async Task<ActionResult> Post()
+        {
+            return Ok();
         }
     }
 }

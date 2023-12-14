@@ -37,7 +37,7 @@ namespace ApiGateway.SQLServer.Controllers
             if (cliente == null){return BadRequest();}
             if (cliente.cliente_ID !=0)
             {
-                return Ok();
+                return Ok(cliente.cliente_ID);
             }else{
                 return BadRequest();
             }
